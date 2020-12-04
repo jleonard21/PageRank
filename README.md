@@ -100,7 +100,7 @@ These pages are not very interesting, however, because they are not articles. To
 
 An easy method is to remove all pages that have "too many" links. The --filter_ratio argument removes all pages that have more links than the specified fraction.
 
-We can estimate the most important articles on the domain with the `filter ratio = 0.2`:
+We can estimate the most important articles on the domain with the `filter_ratio = 0.2`:
 ```
 In [6]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2                          
 INFO:root:rank=0 pagerank=0.3469613492488861 url=www.lawfareblog.com/trump-asks-supreme-court-stay-congressional-subpeona-tax-returns
