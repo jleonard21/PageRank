@@ -125,31 +125,7 @@ In [10]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0
 ```
 Changing the value of alpha also gives us very different pagerank rankings. For example:
 ```
-In [11]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose                                   
-INFO:root:rank=0 pagerank=0.2874051630496979 url=www.lawfareblog.com/about-lawfare-brief-history-term-and-site
-INFO:root:rank=1 pagerank=0.2874051630496979 url=www.lawfareblog.com/lawfare-job-board
-INFO:root:rank=2 pagerank=0.2874051630496979 url=www.lawfareblog.com/masthead
-INFO:root:rank=3 pagerank=0.2874051630496979 url=www.lawfareblog.com/litigation-documents-resources-related-travel-ban
-INFO:root:rank=4 pagerank=0.2874051630496979 url=www.lawfareblog.com/subscribe-lawfare
-INFO:root:rank=5 pagerank=0.2874051630496979 url=www.lawfareblog.com/litigation-documents-related-appointment-matthew-whitaker-acting-attorney-general
-INFO:root:rank=6 pagerank=0.2874051630496979 url=www.lawfareblog.com/documents-related-mueller-investigation
-INFO:root:rank=7 pagerank=0.2874051630496979 url=www.lawfareblog.com/our-comments-policy
-INFO:root:rank=8 pagerank=0.2874051630496979 url=www.lawfareblog.com/upcoming-events
-INFO:root:rank=9 pagerank=0.2874051630496979 url=www.lawfareblog.com/topics 
-
-In [12]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --alpha=0.99999                   
-INFO:root:rank=0 pagerank=0.28859302401542664 url=www.lawfareblog.com/snowden-revelations
-INFO:root:rank=1 pagerank=0.28859302401542664 url=www.lawfareblog.com/lawfare-job-board
-INFO:root:rank=2 pagerank=0.28859302401542664 url=www.lawfareblog.com/documents-related-mueller-investigation
-INFO:root:rank=3 pagerank=0.28859302401542664 url=www.lawfareblog.com/litigation-documents-resources-related-travel-ban
-INFO:root:rank=4 pagerank=0.28859302401542664 url=www.lawfareblog.com/subscribe-lawfare
-INFO:root:rank=5 pagerank=0.28859302401542664 url=www.lawfareblog.com/topics
-INFO:root:rank=6 pagerank=0.28859302401542664 url=www.lawfareblog.com/masthead
-INFO:root:rank=7 pagerank=0.28859302401542664 url=www.lawfareblog.com/our-comments-policy
-INFO:root:rank=8 pagerank=0.28859302401542664 url=www.lawfareblog.com/upcoming-events
-INFO:root:rank=9 pagerank=0.28859302401542664 url=www.lawfareblog.com/litigation-documents-related-appointment-matthew-whitaker-acting-attorney-general
-
-In [13]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2                
+In [11]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2                
 INFO:root:rank=0 pagerank=0.3469613492488861 url=www.lawfareblog.com/trump-asks-supreme-court-stay-congressional-subpeona-tax-returns
 INFO:root:rank=1 pagerank=0.29521211981773376 url=www.lawfareblog.com/livestream-nov-21-impeachment-hearings-0
 INFO:root:rank=2 pagerank=0.29039666056632996 url=www.lawfareblog.com/opening-statement-david-holmes
@@ -161,7 +137,7 @@ INFO:root:rank=7 pagerank=0.14956679940223694 url=www.lawfareblog.com/todays-hea
 INFO:root:rank=8 pagerank=0.14366623759269714 url=www.lawfareblog.com/cyberlaw-podcast-mistrusting-google
 INFO:root:rank=9 pagerank=0.14239734411239624 url=www.lawfareblog.com/lawfare-podcast-bonus-edition-gordon-sondland-vs-committee-no-bull
 
-In [14]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2 --alpha=0.99999
+In [12]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2 --alpha=0.99999
 INFO:root:rank=0 pagerank=0.7014895677566528 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.7014873623847961 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.10551629960536957 url=www.lawfareblog.com/cost-using-zero-days
@@ -179,7 +155,7 @@ Recall that we can use this file to find the "highest quality" search results fr
 
 **Part 1:**  Implement the WebGraph.make_personalization_vector function. This function enables the --personalization_vector_query command line argument, which provides an alternative method for searching by doing the filtering on the personalization vector.
 ```
-In [15]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona'
+In [13]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona'
 INFO:root:rank=0 pagerank=0.6320855617523193 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.6320620179176331 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.15656693279743195 url=www.lawfareblog.com/chinatalk-how-party-takes-its-propaganda-global
@@ -194,7 +170,7 @@ INFO:root:rank=9 pagerank=0.0717419981956482 url=www.lawfareblog.com/house-overs
 
 However, these results are different than when using the --search_query option:
 ```
-In [16]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --search_query='corona' 
+In [14]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --search_query='corona' 
 INFO:root:rank=0 pagerank=0.008131962269544601 url=www.lawfareblog.com/house-oversight-committee-holds-day-two-hearing-government-coronavirus-response
 INFO:root:rank=1 pagerank=0.007790825795382261 url=www.lawfareblog.com/lawfare-podcast-united-nations-and-coronavirus-crisis
 INFO:root:rank=2 pagerank=0.005226220469921827 url=www.lawfareblog.com/livestream-house-oversight-committee-holds-hearing-government-coronavirus-response
@@ -211,7 +187,7 @@ INFO:root:rank=9 pagerank=0.0031036492437124252 url=www.lawfareblog.com/why-cong
 
 For example, the following query ranks all webpages by their `corona` importance, but removes webpages mentioning `corona` from the results:
 ```
-In [17]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona' --search_query='-corona'
+In [15]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona' --search_query='-corona'
 INFO:root:rank=0 pagerank=0.6320855617523193 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.6320620179176331 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.15656693279743195 url=www.lawfareblog.com/chinatalk-how-party-takes-its-propaganda-global
@@ -226,5 +202,5 @@ INFO:root:rank=9 pagerank=0.05071817338466644 url=www.lawfareblog.com/livestream
 
 **Part 3:** You should experiment with a national security topic other than the coronavirus. For example, find out what articles are important to the `iran` topic but do not contain the word `iran`. Your goal should be to discover what topics that www.lawfareblog.com considers to be related to the national security topic you choose.
 ```
-In [18]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='iran' --search_query='-iran'
+In [16]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='iran' --search_query='-iran'
 ```
