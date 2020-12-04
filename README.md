@@ -5,13 +5,11 @@ In this assignment, we create a search engine that uses both pagerank and word e
 **Due date:** Sunday, 6 December at midnight
 
 ## Task 1: Power Method
-Implement the WebGraph.power_method function in `pagerank.py` for computing the pagerank vector.
+Implement the WebGraph.power_method function in `pagerank2.py` for computing the pagerank vector.
 
 **Part 1:** To check that the implementation is working, run the program on the `small.csv.gz` graph:
 ```
 In [1]: run pagerank2.py --data=./small.csv.gz --verbose
-DEBUG:root:computing indices
-DEBUG:root:computing values 
 DEBUG:root:i=0 accuracy=tensor(0.2563) 
 DEBUG:root:i=1 accuracy=tensor(0.1184) 
 DEBUG:root:i=2 accuracy=tensor(0.0707) 
@@ -44,10 +42,9 @@ INFO:root:rank=4 pagerank=0.18590237200260162 url=3
 INFO:root:rank=5 pagerank=0.16916769742965698 url=1
 ```
 
-**Part 2:** The `pagerank.py` file has an option `--search_query`, which takes a string as a parameter. If this argument is used, then program returns all urls that match the query string sorted according to their pagerank. Essentially, this gives us the most important pages on the blog related to our query:
+**Part 2:** The `pagerank2.py` file has an option `--search_query`, which takes a string as a parameter. If this argument is used, then program returns all urls that match the query string sorted according to their pagerank. Essentially, this gives us the most important pages on the blog related to our query:
 ```
 In [2]: run pagerank2.py --data=./lawfareblog.csv.gz --search_query='corona'                     
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.001003776676952839 url=www.lawfareblog.com/lawfare-podcast-united-nations-and-coronavirus-crisis
 INFO:root:rank=1 pagerank=0.0008922395063564181 url=www.lawfareblog.com/house-oversight-committee-holds-day-two-hearing-government-coronavirus-response
 INFO:root:rank=2 pagerank=0.0007039029151201248 url=www.lawfareblog.com/britains-coronavirus-response
@@ -60,9 +57,6 @@ INFO:root:rank=8 pagerank=0.000612482544966042 url=www.lawfareblog.com/house-sub
 INFO:root:rank=9 pagerank=0.0006018723943270743 url=www.lawfareblog.com/livestream-house-oversight-committee-holds-hearing-government-coronavirus-response
 
 In [3]: run pagerank2.py --data=./lawfareblog.csv.gz --search_query='trump'                      
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.005782557651400566 url=www.lawfareblog.com/trump-asks-supreme-court-stay-congressional-subpeona-tax-returns
 INFO:root:rank=1 pagerank=0.005233839154243469 url=www.lawfareblog.com/document-trump-revokes-obama-executive-order-counterterrorism-strike-casualty-reporting
 INFO:root:rank=2 pagerank=0.005129670724272728 url=www.lawfareblog.com/trump-administrations-worrying-new-policy-israeli-settlements
@@ -75,9 +69,6 @@ INFO:root:rank=8 pagerank=0.003450872143730521 url=www.lawfareblog.com/dc-circui
 INFO:root:rank=9 pagerank=0.0034484383650124073 url=www.lawfareblog.com/second-circuit-rules-mazars-must-hand-over-trump-tax-returns-new-york-prosecutors
 
 In [4]: run pagerank2.py --data=./lawfareblog.csv.gz --search_query='iran'                       
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.005129670724272728 url=www.lawfareblog.com/trump-administrations-worrying-new-policy-israeli-settlements
 INFO:root:rank=1 pagerank=0.005016769748181105 url=www.lawfareblog.com/update-military-commissions-continued-health-issues-recusal-motion-and-new-cell-al-iraqi
 INFO:root:rank=2 pagerank=0.004574609454721212 url=www.lawfareblog.com/praise-presidents-iran-tweets
@@ -90,11 +81,9 @@ INFO:root:rank=8 pagerank=0.0018262730445712805 url=www.lawfareblog.com/its-not-
 INFO:root:rank=9 pagerank=0.001733092125505209 url=www.lawfareblog.com/assessing-aclu-habeas-petition-behalf-unnamed-us-citizen-held-enemy-combatant-iraq
 ```
 
-**Part 3:** Part 3: The webgraph of lawfareblog.com (the P matrix) naturally contains a lot of structure. For example, essentially all pages on the domain have links to the root page https://lawfareblog.com/ and similarly broad pages like https://www.lawfareblog.com/topics and https://www.lawfareblog.com/subscribe-lawfare. These pages therefore have a large pagerank. We can get a list of the pages with the largest pagerank by running
+**Part 3:** The webgraph of lawfareblog.com (the P matrix) naturally contains a lot of structure. For example, essentially all pages on the domain have links to the root page https://lawfareblog.com/ and similarly broad pages like https://www.lawfareblog.com/topics and https://www.lawfareblog.com/subscribe-lawfare. These pages therefore have a large pagerank. We can get a list of the pages with the largest pagerank by running
 ```
 In [5]: run pagerank2.py --data=./lawfareblog.csv.gz                                             
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.2874051630496979 url=www.lawfareblog.com/about-lawfare-brief-history-term-and-site
 INFO:root:rank=1 pagerank=0.2874051630496979 url=www.lawfareblog.com/lawfare-job-board
 INFO:root:rank=2 pagerank=0.2874051630496979 url=www.lawfareblog.com/masthead
@@ -111,11 +100,9 @@ These pages are not very interesting, however, because they are not articles. To
 
 An easy method is to remove all pages that have "too many" links. The --filter_ratio argument removes all pages that have more links than the specified fraction.
 
-We can estimate the most important articles on the domain with the `filter ration = 0.2`:
+We can estimate the most important articles on the domain with the `filter ratio = 0.2`:
 ```
 In [6]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2                          
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.3469613492488861 url=www.lawfareblog.com/trump-asks-supreme-court-stay-congressional-subpeona-tax-returns
 INFO:root:rank=1 pagerank=0.29521211981773376 url=www.lawfareblog.com/livestream-nov-21-impeachment-hearings-0
 INFO:root:rank=2 pagerank=0.29039666056632996 url=www.lawfareblog.com/opening-statement-david-holmes
@@ -139,8 +126,6 @@ In [10]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0
 Changing the value of alpha also gives us very different pagerank rankings. For example:
 ```
 In [11]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose                                   
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.2874051630496979 url=www.lawfareblog.com/about-lawfare-brief-history-term-and-site
 INFO:root:rank=1 pagerank=0.2874051630496979 url=www.lawfareblog.com/lawfare-job-board
 INFO:root:rank=2 pagerank=0.2874051630496979 url=www.lawfareblog.com/masthead
@@ -153,8 +138,6 @@ INFO:root:rank=8 pagerank=0.2874051630496979 url=www.lawfareblog.com/upcoming-ev
 INFO:root:rank=9 pagerank=0.2874051630496979 url=www.lawfareblog.com/topics 
 
 In [12]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --alpha=0.99999                   
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.28859302401542664 url=www.lawfareblog.com/snowden-revelations
 INFO:root:rank=1 pagerank=0.28859302401542664 url=www.lawfareblog.com/lawfare-job-board
 INFO:root:rank=2 pagerank=0.28859302401542664 url=www.lawfareblog.com/documents-related-mueller-investigation
@@ -167,8 +150,6 @@ INFO:root:rank=8 pagerank=0.28859302401542664 url=www.lawfareblog.com/upcoming-e
 INFO:root:rank=9 pagerank=0.28859302401542664 url=www.lawfareblog.com/litigation-documents-related-appointment-matthew-whitaker-acting-attorney-general
 
 In [13]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2                
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.3469613492488861 url=www.lawfareblog.com/trump-asks-supreme-court-stay-congressional-subpeona-tax-returns
 INFO:root:rank=1 pagerank=0.29521211981773376 url=www.lawfareblog.com/livestream-nov-21-impeachment-hearings-0
 INFO:root:rank=2 pagerank=0.29039666056632996 url=www.lawfareblog.com/opening-statement-david-holmes
@@ -181,8 +162,6 @@ INFO:root:rank=8 pagerank=0.14366623759269714 url=www.lawfareblog.com/cyberlaw-p
 INFO:root:rank=9 pagerank=0.14239734411239624 url=www.lawfareblog.com/lawfare-podcast-bonus-edition-gordon-sondland-vs-committee-no-bull
 
 In [14]: run pagerank2.py --data=./lawfareblog.csv.gz --verbose --filter_ratio=0.2 --alpha=0.99999
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
 INFO:root:rank=0 pagerank=0.7014895677566528 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.7014873623847961 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.10551629960536957 url=www.lawfareblog.com/cost-using-zero-days
@@ -201,9 +180,6 @@ Recall that we can use this file to find the "highest quality" search results fr
 **Part 1:**  Implement the WebGraph.make_personalization_vector function. This function enables the --personalization_vector_query command line argument, which provides an alternative method for searching by doing the filtering on the personalization vector.
 ```
 In [15]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona'
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.6320855617523193 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.6320620179176331 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.15656693279743195 url=www.lawfareblog.com/chinatalk-how-party-takes-its-propaganda-global
@@ -219,9 +195,6 @@ INFO:root:rank=9 pagerank=0.0717419981956482 url=www.lawfareblog.com/house-overs
 However, these results are different than when using the --search_query option:
 ```
 In [16]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --search_query='corona' 
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.008131962269544601 url=www.lawfareblog.com/house-oversight-committee-holds-day-two-hearing-government-coronavirus-response
 INFO:root:rank=1 pagerank=0.007790825795382261 url=www.lawfareblog.com/lawfare-podcast-united-nations-and-coronavirus-crisis
 INFO:root:rank=2 pagerank=0.005226220469921827 url=www.lawfareblog.com/livestream-house-oversight-committee-holds-hearing-government-coronavirus-response
@@ -239,9 +212,6 @@ INFO:root:rank=9 pagerank=0.0031036492437124252 url=www.lawfareblog.com/why-cong
 For example, the following query ranks all webpages by their `corona` importance, but removes webpages mentioning `corona` from the results:
 ```
 In [17]: run pagerank2.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='corona' --search_query='-corona'
-INFO:gensim.models.utils_any2vec:loading projection weights from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.utils_any2vec:loaded (1193514, 200) matrix from /Users/slee19/gensim-data/glove-twitter-200/glove-twitter-200.gz
-INFO:gensim.models.keyedvectors:precomputing L2-norms of word weight vectors
 INFO:root:rank=0 pagerank=0.6320855617523193 url=www.lawfareblog.com/covid-19-speech-and-surveillance-response
 INFO:root:rank=1 pagerank=0.6320620179176331 url=www.lawfareblog.com/lawfare-live-covid-19-speech-and-surveillance
 INFO:root:rank=2 pagerank=0.15656693279743195 url=www.lawfareblog.com/chinatalk-how-party-takes-its-propaganda-global
