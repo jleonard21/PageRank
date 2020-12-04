@@ -1,6 +1,6 @@
 # Pagerank HW: Web Search with Word2Vec
 
-In this assignment, you will create a search engine that uses both pagerank and word embeddings to find high quality results.
+In this assignment, we create a search engine that uses both pagerank and word embeddings to find high quality results.
 
 Task 1 is required, Tasks 2 and 3 are extra credit.
 
